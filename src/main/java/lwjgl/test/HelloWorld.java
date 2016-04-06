@@ -258,17 +258,17 @@ public class HelloWorld {
                 }
             } else if (glfwGetKey(window, GLFW_KEY_F8) == 1) {
                 secondCube
-                        .setRotationPoint(secondCube.getxPos(), firstCube.getStretchY() - firstCube.getSize() / 2, secondCube.getzPos())
+                        .setRotationPoint(0.0f, firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
                         .setRotateX(secondCube.getRotateX() + 2.0f);
                 thirdCube
-                        .setRotationPoint(thirdCube.getxPos(), firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
+                        .setRotationPoint(0.0f, firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
                         .setRotateX(thirdCube.getRotateX() + 2.0f);
             } else if (glfwGetKey(window, GLFW_KEY_F5) == 1) {
                 secondCube
-                        .setRotationPoint(secondCube.getxPos(), firstCube.getStretchY() - firstCube.getSize() / 2, secondCube.getzPos())
+                        .setRotationPoint(0.0f, firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
                         .setRotateX(secondCube.getRotateX() - 2.0f);
                 thirdCube
-                        .setRotationPoint(thirdCube.getxPos(), firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
+                        .setRotationPoint(0.0f, firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
                         .setRotateX(thirdCube.getRotateX() - 2.0f);
             }
 
@@ -425,19 +425,25 @@ public class HelloWorld {
             return this;
         }
 
+        private float sin(float source) {
+            return (float) Math.sin((double) source);
+        }
+
+        private float cos(float source) {
+            return (float) Math.cos((double) source);
+        }
+
         public void render() {
             // Saving current matrix state
             glPushMatrix();
 
             // Applying rotation transformation
-            //double dRotateX = rotateX;
-            //double dRotateY = rotateY;
-            //double dRotateZ = rotateZ;
-
             glTranslatef( this.rotPointX,  this.rotPointY,  this.rotPointZ);
-            glRotatef(rotateX, 1.0f, 0.0f, 0.0f);
-            glRotatef(rotateY, 0.0f, 1.0f, 0.0f);
+
             glRotatef(rotateZ, 0.0f, 0.0f, 1.0f);
+            glRotatef(rotateY, 0.0f, 1.0f, 0.0f);
+            glRotatef(rotateX, 1.0f, 0.0f, 0.0f);
+
             glTranslatef(-this.rotPointX, -this.rotPointY, -this.rotPointZ);
 
             // Initializing quadratic mode
