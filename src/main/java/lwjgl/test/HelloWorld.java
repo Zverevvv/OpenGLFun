@@ -130,7 +130,7 @@ public class HelloWorld {
             glLoadIdentity();
 
             // Setting up the actual projection position
-            glOrtho(-15, 15, -15, 15, -15, 15);
+            glOrtho(-20, 20, -20, 20, -20, 20);
 
             // Switching to model view
             glMatrixMode(GL_MODELVIEW);
@@ -139,21 +139,30 @@ public class HelloWorld {
             glEnable(GL_DEPTH_TEST);
 
             // Creating cubes
-            Cube3D firstCube = new Cube3D();
+            Cube3D firstCube = new Cube3D(2.0f);
             Cube3D secondCube = new Cube3D(2.0f);
+            Cube3D thirdCube = new Cube3D(2.0f);
 
             firstCube
-                    .setStretchX(2.0f)
-                    //.setRotateX(rotation++)
-                    .setRotateZ(10.0f)
+                    .setStretchY(8.0f)
+                    .setRotateY(rotation++)
                     .render();
 
             secondCube
-                    .setyPos(7.0f)
-                    .setxPos(6.0f)
-                    .setStretchZ(1.5f)
-                    .setRotateY(50.0f)
-                    //.setRotateZ(rotation++)
+                    .setRotationPoint(secondCube.getxPos(), firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
+                    .setyPos(firstCube.getStretchY() - firstCube.getSize() / 2)
+                    .setStretchX(4.0f)
+                    .setxPos(secondCube.getStretchX() + secondCube.getSize() / 2)
+                    .setRotateX(rotation)
+                    .render();
+
+            thirdCube
+                    .setStretchY(4.0f)
+                    .setxPos(secondCube.getxPos() + secondCube.getStretchX() - secondCube.getSize() / 2)
+                    .setyPos(secondCube.getyPos() - thirdCube.getStretchY() - secondCube.getSize() / 2)
+                    .setRotationPoint(thirdCube.getxPos(), firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
+                    .setRotateY(rotation)
+                    .setRotateX(rotation)
                     .render();
 
             // End of my code
@@ -169,6 +178,7 @@ public class HelloWorld {
         private float size = 1.0f;
         private float stretchX = 1.0f, stretchY = 1.0f, stretchZ = 1.0f;
         private float rotateX = 0.0f, rotateY = 0.0f, rotateZ = 0.0f;
+        private float rotPointX = 0.0f, rotPointY = 0.0f, rotPointZ = 0.0f;
         private float xPos = 0.0f, yPos = 0.0f, zPos = 0.0f;
         private boolean rndColorize = true;
 
@@ -285,16 +295,23 @@ public class HelloWorld {
             return this;
         }
 
+        public Cube3D setRotationPoint(float x, float y, float z) {
+            this.rotPointX = x;
+            this.rotPointY = y;
+            this.rotPointZ = z;
+            return this;
+        }
+
         public void render() {
             // Saving current matrix state
             glPushMatrix();
 
             // Applying rotation transformation
-            glTranslatef( this.xPos,  this.yPos,  this.zPos);
+            glTranslatef( this.rotPointX,  this.rotPointY,  this.rotPointZ);
             glRotatef(rotateX, 1.0f, 0.0f, 0.0f);
             glRotatef(rotateY, 0.0f, 1.0f, 0.0f);
             glRotatef(rotateZ, 0.0f, 0.0f, 1.0f);
-            glTranslatef(-this.xPos, -this.yPos, -this.zPos);
+            glTranslatef(-this.rotPointX, -this.rotPointY, -this.rotPointZ);
 
             // Initializing quadratic mode
             glBegin(GL_QUADS);
