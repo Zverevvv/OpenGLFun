@@ -21,6 +21,12 @@ public class HelloWorld {
     private GLFWWindowSizeCallback wsCallback;
     private Closure debugProc;
     private float rotation = 0.0f;
+    // Creating cubes
+    private final float CUBE_SIZE = 2.0f;
+
+    private Cube3D firstCube = new Cube3D(CUBE_SIZE);
+    private Cube3D secondCube = new Cube3D(CUBE_SIZE);
+    private Cube3D thirdCube = new Cube3D(CUBE_SIZE);
 
     // The window handle
     private long window;
@@ -57,6 +63,8 @@ public class HelloWorld {
         if (glfwInit() != GL11.GL_TRUE)
             throw new IllegalStateException("Unable to initialize GLFW");
 
+        glfwPollEvents();
+
         // Configure our window
         glfwDefaultWindowHints(); // optional, the current window hints are already the default
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 1);
@@ -89,6 +97,33 @@ public class HelloWorld {
                 }
             }
         });
+
+        // My custom key callbacks
+        // First cube key callbacks
+        /*glfwSetKeyCallback(window, keyCallback = new GLFWKeyCallback() {
+            @Override
+            public void invoke(long window, int key, int scancode, int action, int mods) {
+                if (key == GLFW_KEY_UP && action == GLFW_PRESS) {
+                    System.out.println("Up key was pressed.");
+                    firstCube
+                            .setStretchY(firstCube.getStretchY() + 0.5f)
+                            .setyPos(firstCube.getyPos() + 1.0f).render();
+                    System.out.println(firstCube.getStretchY() + ": " + firstCube.getyPos());
+                }
+            }
+        });*/
+
+        firstCube.setStretchY(8.0f);
+
+        secondCube
+                .setStretchX(4.0f)
+                .setyPos(firstCube.getStretchY() - firstCube.getSize() / 2)
+                .setxPos(secondCube.getStretchX() + secondCube.getSize() / 2);
+
+        thirdCube
+                .setStretchY(4.0f)
+                .setxPos(secondCube.getxPos() + secondCube.getStretchX() - secondCube.getSize() / 2)
+                .setyPos(secondCube.getyPos() - thirdCube.getStretchY() - secondCube.getSize() / 2);
 
         GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
         glfwSetWindowPos(window, (vidmode.width() - width) / 2, (vidmode.height() - height) / 2);
@@ -138,36 +173,120 @@ public class HelloWorld {
             glEnable(GL_CULL_FACE);
             glEnable(GL_DEPTH_TEST);
 
-            // Creating cubes
-            Cube3D firstCube = new Cube3D(2.0f);
-            Cube3D secondCube = new Cube3D(2.0f);
-            Cube3D thirdCube = new Cube3D(2.0f);
+//            firstCube
+//                    .setStretchY(8.0f)
+//                    //.setRotateY(rotation++) //simple rotation
+//                    .render();
+//
+//            secondCube
+//                    .setStretchX(4.0f)
+//                    .setyPos(firstCube.getStretchY() - firstCube.getSize() / 2)
+//                    .setxPos(secondCube.getStretchX() + secondCube.getSize() / 2)
+//                    .setRotationPoint(0.0f, firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
+//                    //.setRotateY(rotation) // rotation around first cube
+//                    //.setRotateX(rotation) // rotation around itself
+//                    .render();
+//
+//            thirdCube
+//                    .setStretchY(4.0f)
+//                    .setxPos(secondCube.getxPos() + secondCube.getStretchX() - secondCube.getSize() / 2)
+//                    .setyPos(secondCube.getyPos() - thirdCube.getStretchY() - secondCube.getSize() / 2)
+//                    //.setRotationPoint(0.0f, firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f) // rotation around first cube
+//                    //.setRotateY(rotation) // rotation around first cube
+//                    .setRotationPoint(thirdCube.getxPos(), firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
+//                    //.setRotateY(rotation) // rotation around itself
+//                    //.setRotateX(rotation) // rotation around second cube
+//                    .render();
 
-            firstCube
-                    .setStretchY(8.0f)
-                    .setRotateY(rotation++)
-                    .render();
+            // Key press handling for first cube
 
-            secondCube
-                    .setStretchX(4.0f)
-                    .setyPos(firstCube.getStretchY() - firstCube.getSize() / 2)
-                    .setxPos(secondCube.getStretchX() + secondCube.getSize() / 2)
-                    .setRotationPoint(0.0f, firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
-                    .setRotateY(rotation)
-                    //.setRotateX(rotation)
-                    //.setRotateZ(rotation)
-                    .render();
+            if (glfwGetKey(window, GLFW_KEY_F2) == 1) {
+                firstCube
+                        .setStretchY(firstCube.getStretchY() + 0.2f)
+                        .setyPos(firstCube.getyPos() + 0.2f);
+                secondCube
+                        .setyPos(secondCube.getyPos() + 0.4f);
+                thirdCube
+                        .setyPos(thirdCube.getyPos() + 0.4f);
+            } else if (glfwGetKey(window, GLFW_KEY_F3) == 1) {
+                // Can be reworked properly in according with the angle of second cube.
+                if (firstCube.getStretchY() > secondCube.getSize() / 1.5 + thirdCube.getStretchY()) {
+                    firstCube
+                            .setStretchY(firstCube.getStretchY() - 0.2f)
+                            .setyPos(firstCube.getyPos() - 0.2f);
+                    secondCube
+                            .setyPos(secondCube.getyPos() - 0.4f);
+                    thirdCube
+                            .setyPos(thirdCube.getyPos() - 0.4f);
+                }
+            } else if (glfwGetKey(window, GLFW_KEY_F4) == 1) {
+                firstCube
+                        .setRotateY(firstCube.getRotateY() + 2.0f);
+                secondCube
+                        .setRotationPoint(0.0f, firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
+                        .setRotateY(secondCube.getRotateY() + 2.0f);
+                thirdCube
+                        .setRotationPoint(0.0f, firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
+                        .setRotateY(thirdCube.getRotateY() + 2.0f);
+            } else if (glfwGetKey(window, GLFW_KEY_F1) == 1) {
+                firstCube
+                        .setRotateY(firstCube.getRotateY() - 2.0f);
+                secondCube
+                        .setRotationPoint(0.0f, firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
+                        .setRotateY(secondCube.getRotateY() - 2.0f);
+                thirdCube
+                        .setRotationPoint(0.0f, firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
+                        .setRotateY(thirdCube.getRotateY() - 2.0f);
+            }
 
-            thirdCube
-                    .setStretchY(4.0f)
-                    .setxPos(secondCube.getxPos() + secondCube.getStretchX() - secondCube.getSize() / 2)
-                    .setyPos(secondCube.getyPos() - thirdCube.getStretchY() - secondCube.getSize() / 2)
-                    .setRotationPoint(0.0f, firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
-                    .setRotateY(rotation)
-                    //.setRotationPoint(thirdCube.getxPos(), firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
-                    //.setRotateY(rotation)
-                    //.setRotateX(rotation)
-                    .render();
+
+            // Key press handling for second cube
+
+            if (glfwGetKey(window, GLFW_KEY_F6) == 1) {
+                secondCube
+                        .setStretchX(secondCube.getStretchX() + 0.2f)
+                        .setxPos(secondCube.getxPos() + 0.2f);
+                thirdCube
+                        .setxPos(thirdCube.getxPos() + 0.4f);
+            } else if (glfwGetKey(window, GLFW_KEY_F7) == 1) {
+                if (secondCube.getStretchX() > 1) {
+                    secondCube
+                            .setStretchX(secondCube.getStretchX() - 0.2f)
+                            .setxPos(secondCube.getxPos() - 0.2f);
+                    thirdCube
+                            .setxPos(thirdCube.getxPos() - 0.4f);
+                }
+            } else if (glfwGetKey(window, GLFW_KEY_F8) == 1) {
+                secondCube
+                        .setRotationPoint(secondCube.getxPos(), firstCube.getStretchY() - firstCube.getSize() / 2, secondCube.getzPos())
+                        .setRotateX(secondCube.getRotateX() + 2.0f);
+                thirdCube
+                        .setRotationPoint(thirdCube.getxPos(), firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
+                        .setRotateX(thirdCube.getRotateX() + 2.0f);
+            } else if (glfwGetKey(window, GLFW_KEY_F5) == 1) {
+                secondCube
+                        .setRotationPoint(secondCube.getxPos(), firstCube.getStretchY() - firstCube.getSize() / 2, secondCube.getzPos())
+                        .setRotateX(secondCube.getRotateX() - 2.0f);
+                thirdCube
+                        .setRotationPoint(thirdCube.getxPos(), firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
+                        .setRotateX(thirdCube.getRotateX() - 2.0f);
+            }
+
+            // Key press handling for third cube
+
+            if (glfwGetKey(window, GLFW_KEY_F10) == 1) {
+                System.out.println("You pressed UP + LEFT SHIFT");
+            } else if (glfwGetKey(window, GLFW_KEY_F11) == 1) {
+                System.out.println("You pressed DOWN + LEFT SHIFT");
+            } else if (glfwGetKey(window, GLFW_KEY_F12) == 1) {
+                System.out.println("You pressed RIGHT + LEFT SHIFT");
+            } else if (glfwGetKey(window, GLFW_KEY_F9) == 1) {
+                System.out.println("You pressed LEFT + LEFT SHIFT");
+            }
+
+            firstCube.render();
+            secondCube.render();
+            thirdCube.render();
 
             // End of my code
             glfwSwapBuffers(window); // swap the color buffers
@@ -311,6 +430,10 @@ public class HelloWorld {
             glPushMatrix();
 
             // Applying rotation transformation
+            //double dRotateX = rotateX;
+            //double dRotateY = rotateY;
+            //double dRotateZ = rotateZ;
+
             glTranslatef( this.rotPointX,  this.rotPointY,  this.rotPointZ);
             glRotatef(rotateX, 1.0f, 0.0f, 0.0f);
             glRotatef(rotateY, 0.0f, 1.0f, 0.0f);
