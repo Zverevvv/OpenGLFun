@@ -149,20 +149,24 @@ public class HelloWorld {
                     .render();
 
             secondCube
-                    .setRotationPoint(secondCube.getxPos(), firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
-                    .setyPos(firstCube.getStretchY() - firstCube.getSize() / 2)
                     .setStretchX(4.0f)
+                    .setyPos(firstCube.getStretchY() - firstCube.getSize() / 2)
                     .setxPos(secondCube.getStretchX() + secondCube.getSize() / 2)
-                    .setRotateX(rotation)
+                    .setRotationPoint(0.0f, firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
+                    .setRotateY(rotation)
+                    //.setRotateX(rotation)
+                    //.setRotateZ(rotation)
                     .render();
 
             thirdCube
                     .setStretchY(4.0f)
                     .setxPos(secondCube.getxPos() + secondCube.getStretchX() - secondCube.getSize() / 2)
                     .setyPos(secondCube.getyPos() - thirdCube.getStretchY() - secondCube.getSize() / 2)
-                    .setRotationPoint(thirdCube.getxPos(), firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
+                    .setRotationPoint(0.0f, firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
                     .setRotateY(rotation)
-                    .setRotateX(rotation)
+                    //.setRotationPoint(thirdCube.getxPos(), firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
+                    //.setRotateY(rotation)
+                    //.setRotateX(rotation)
                     .render();
 
             // End of my code
