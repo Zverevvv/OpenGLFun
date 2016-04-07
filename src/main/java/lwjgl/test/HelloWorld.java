@@ -204,38 +204,58 @@ public class HelloWorld {
                 firstCube
                         .setStretchY(firstCube.getStretchY() + 0.2f)
                         .setyPos(firstCube.getyPos() + 0.2f);
+
+                float halfCubeDist = (firstCube.getSize() * firstCube.getStretchY()) / 2;
+                float rotPointY = firstCube.getyPos() + halfCubeDist - (firstCube.getSize() / 2);
+
                 secondCube
+                        .setRotationPoint(0.0f, rotPointY, 0.0f)
                         .setyPos(secondCube.getyPos() + 0.4f);
                 thirdCube
+                        .setRotationPoint(0.0f, rotPointY, 0.0f)
                         .setyPos(thirdCube.getyPos() + 0.4f);
             } else if (glfwGetKey(window, GLFW_KEY_F3) == 1) {
                 // Can be reworked properly in according with the angle of second cube.
-                if (firstCube.getStretchY() > secondCube.getSize() / 1.5 + thirdCube.getStretchY()) {
+                if (firstCube.getStretchY() >= secondCube.getSize() / 1.5 + thirdCube.getStretchY()) {
                     firstCube
                             .setStretchY(firstCube.getStretchY() - 0.2f)
                             .setyPos(firstCube.getyPos() - 0.2f);
+
+                    float halfCubeDist = (firstCube.getSize() * firstCube.getStretchY()) / 2;
+                    float rotPointY = firstCube.getyPos() + halfCubeDist - (firstCube.getSize() / 2);
+
                     secondCube
+                            .setRotationPoint(0.0f, rotPointY, 0.0f)
                             .setyPos(secondCube.getyPos() - 0.4f);
                     thirdCube
+                            .setRotationPoint(0.0f, rotPointY, 0.0f)
                             .setyPos(thirdCube.getyPos() - 0.4f);
                 }
             } else if (glfwGetKey(window, GLFW_KEY_F4) == 1) {
                 firstCube
                         .setRotateY(firstCube.getRotateY() + 2.0f);
+
+                float halfCubeDist = (firstCube.getSize() * firstCube.getStretchY()) / 2;
+                float rotPointY = firstCube.getyPos() + halfCubeDist - (firstCube.getSize() / 2);
+
                 secondCube
-                        .setRotationPoint(0.0f, firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
+                        .setRotationPoint(0.0f, rotPointY, 0.0f)
                         .setRotateY(secondCube.getRotateY() + 2.0f);
                 thirdCube
-                        .setRotationPoint(0.0f, firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
+                        .setRotationPoint(0.0f, rotPointY, 0.0f)
                         .setRotateY(thirdCube.getRotateY() + 2.0f);
             } else if (glfwGetKey(window, GLFW_KEY_F1) == 1) {
                 firstCube
                         .setRotateY(firstCube.getRotateY() - 2.0f);
+
+                float halfCubeDist = (firstCube.getSize() * firstCube.getStretchY()) / 2;
+                float rotPointY = firstCube.getyPos() + halfCubeDist - (firstCube.getSize() / 2);
+
                 secondCube
-                        .setRotationPoint(0.0f, firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
+                        .setRotationPoint(0.0f, rotPointY, 0.0f)
                         .setRotateY(secondCube.getRotateY() - 2.0f);
                 thirdCube
-                        .setRotationPoint(0.0f, firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
+                        .setRotationPoint(0.0f, rotPointY, 0.0f)
                         .setRotateY(thirdCube.getRotateY() - 2.0f);
             }
 
@@ -249,7 +269,7 @@ public class HelloWorld {
                 thirdCube
                         .setxPos(thirdCube.getxPos() + 0.4f);
             } else if (glfwGetKey(window, GLFW_KEY_F7) == 1) {
-                if (secondCube.getStretchX() > 1) {
+                if (secondCube.getStretchX() >= 1) {
                     secondCube
                             .setStretchX(secondCube.getStretchX() - 0.2f)
                             .setxPos(secondCube.getxPos() - 0.2f);
@@ -257,32 +277,55 @@ public class HelloWorld {
                             .setxPos(thirdCube.getxPos() - 0.4f);
                 }
             } else if (glfwGetKey(window, GLFW_KEY_F8) == 1) {
+                float halfCubeDist = (firstCube.getSize() * firstCube.getStretchY()) / 2;
+                float rotPointY = firstCube.getyPos() + halfCubeDist - (firstCube.getSize() / 2);
+
                 secondCube
-                        .setRotationPoint(0.0f, firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
+                        .setRotationPoint(0.0f, rotPointY, 0.0f)
                         .setRotateX(secondCube.getRotateX() + 2.0f);
                 thirdCube
-                        .setRotationPoint(0.0f, firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
+                        .setRotationPoint(0.0f, rotPointY, 0.0f)
                         .setRotateX(thirdCube.getRotateX() + 2.0f);
             } else if (glfwGetKey(window, GLFW_KEY_F5) == 1) {
+                float halfCubeDist = (firstCube.getSize() * firstCube.getStretchY()) / 2;
+                float rotPointY = firstCube.getyPos() + halfCubeDist - (firstCube.getSize() / 2);
+
                 secondCube
-                        .setRotationPoint(0.0f, firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
+                        .setRotationPoint(0.0f, rotPointY, 0.0f)
                         .setRotateX(secondCube.getRotateX() - 2.0f);
                 thirdCube
-                        .setRotationPoint(0.0f, firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
+                        .setRotationPoint(0.0f, rotPointY, 0.0f)
                         .setRotateX(thirdCube.getRotateX() - 2.0f);
             }
 
             // Key press handling for third cube
 
             if (glfwGetKey(window, GLFW_KEY_F10) == 1) {
-                System.out.println("You pressed UP + LEFT SHIFT");
+                thirdCube
+                        .setStretchY(thirdCube.getStretchY() + 0.2f)
+                        .setyPos(thirdCube.getyPos() - 0.2f);
             } else if (glfwGetKey(window, GLFW_KEY_F11) == 1) {
-                System.out.println("You pressed DOWN + LEFT SHIFT");
+                if (thirdCube.getStretchY() >= 1) {
+                    thirdCube
+                            .setStretchY(thirdCube.getStretchY() - 0.2f)
+                            .setyPos(thirdCube.getyPos() + 0.2f);
+                }
             } else if (glfwGetKey(window, GLFW_KEY_F12) == 1) {
-                System.out.println("You pressed RIGHT + LEFT SHIFT");
+                float halfCubeSize = (secondCube.getSize() * secondCube.getStretchX()) / 2;
+                float rotPointX = secondCube.getxPos() + halfCubeSize - (secondCube.getSize() / 2);
+
+                thirdCube
+                        .setRotationPoint(rotPointX, thirdCube.getRotPointY(), 0.0f)
+                        .setRotateY(thirdCube.getRotateY() + 2.0f);
             } else if (glfwGetKey(window, GLFW_KEY_F9) == 1) {
-                System.out.println("You pressed LEFT + LEFT SHIFT");
+                float halfCubeSize = (secondCube.getSize() * secondCube.getStretchX()) / 2;
+                float rotPointX = secondCube.getxPos() + halfCubeSize - (secondCube.getSize() / 2);
+
+                thirdCube
+                        .setRotationPoint(rotPointX, thirdCube.getRotPointY(), 0.0f)
+                        .setRotateY(thirdCube.getRotateY() - 2.0f);
             }
+
 
             firstCube.render();
             secondCube.render();
@@ -423,6 +466,18 @@ public class HelloWorld {
             this.rotPointY = y;
             this.rotPointZ = z;
             return this;
+        }
+
+        public float getRotPointX() {
+            return rotPointX;
+        }
+
+        public float getRotPointY() {
+            return rotPointY;
+        }
+
+        public float getRotPointZ() {
+            return rotPointZ;
         }
 
         private float sin(float source) {
