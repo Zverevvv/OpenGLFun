@@ -173,31 +173,6 @@ public class HelloWorld {
             glEnable(GL_CULL_FACE);
             glEnable(GL_DEPTH_TEST);
 
-//            firstCube
-//                    .setStretchY(8.0f)
-//                    //.setRotateY(rotation++) //simple rotation
-//                    .render();
-//
-//            secondCube
-//                    .setStretchX(4.0f)
-//                    .setyPos(firstCube.getStretchY() - firstCube.getSize() / 2)
-//                    .setxPos(secondCube.getStretchX() + secondCube.getSize() / 2)
-//                    .setRotationPoint(0.0f, firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
-//                    //.setRotateY(rotation) // rotation around first cube
-//                    //.setRotateX(rotation) // rotation around itself
-//                    .render();
-//
-//            thirdCube
-//                    .setStretchY(4.0f)
-//                    .setxPos(secondCube.getxPos() + secondCube.getStretchX() - secondCube.getSize() / 2)
-//                    .setyPos(secondCube.getyPos() - thirdCube.getStretchY() - secondCube.getSize() / 2)
-//                    //.setRotationPoint(0.0f, firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f) // rotation around first cube
-//                    //.setRotateY(rotation) // rotation around first cube
-//                    .setRotationPoint(thirdCube.getxPos(), firstCube.getStretchY() - firstCube.getSize() / 2, 0.0f)
-//                    //.setRotateY(rotation) // rotation around itself
-//                    //.setRotateX(rotation) // rotation around second cube
-//                    .render();
-
             // Key press handling for first cube
 
             if (glfwGetKey(window, GLFW_KEY_F2) == 1) {
@@ -211,6 +186,7 @@ public class HelloWorld {
                 secondCube
                         .setRotationPoint(0.0f, rotPointY, 0.0f)
                         .setyPos(secondCube.getyPos() + 0.4f);
+
                 thirdCube
                         .setRotationPoint(0.0f, rotPointY, 0.0f)
                         .setyPos(thirdCube.getyPos() + 0.4f);
@@ -227,6 +203,7 @@ public class HelloWorld {
                     secondCube
                             .setRotationPoint(0.0f, rotPointY, 0.0f)
                             .setyPos(secondCube.getyPos() - 0.4f);
+
                     thirdCube
                             .setRotationPoint(0.0f, rotPointY, 0.0f)
                             .setyPos(thirdCube.getyPos() - 0.4f);
@@ -241,9 +218,11 @@ public class HelloWorld {
                 secondCube
                         .setRotationPoint(0.0f, rotPointY, 0.0f)
                         .setRotateY(secondCube.getRotateY() + 2.0f);
+
                 thirdCube
-                        .setRotationPoint(0.0f, rotPointY, 0.0f)
+                        .setRotationPoint(thirdCube.getRotPointX(), rotPointY, thirdCube.getRotPointZ())
                         .setRotateY(thirdCube.getRotateY() + 2.0f);
+
             } else if (glfwGetKey(window, GLFW_KEY_F1) == 1) {
                 firstCube
                         .setRotateY(firstCube.getRotateY() - 2.0f);
@@ -254,8 +233,9 @@ public class HelloWorld {
                 secondCube
                         .setRotationPoint(0.0f, rotPointY, 0.0f)
                         .setRotateY(secondCube.getRotateY() - 2.0f);
+
                 thirdCube
-                        .setRotationPoint(0.0f, rotPointY, 0.0f)
+                        .setRotationPoint(thirdCube.getRotPointX(), rotPointY, thirdCube.getRotPointZ())
                         .setRotateY(thirdCube.getRotateY() - 2.0f);
             }
 
@@ -266,13 +246,16 @@ public class HelloWorld {
                 secondCube
                         .setStretchX(secondCube.getStretchX() + 0.2f)
                         .setxPos(secondCube.getxPos() + 0.2f);
+
                 thirdCube
                         .setxPos(thirdCube.getxPos() + 0.4f);
+
             } else if (glfwGetKey(window, GLFW_KEY_F7) == 1) {
                 if (secondCube.getStretchX() >= 1) {
                     secondCube
                             .setStretchX(secondCube.getStretchX() - 0.2f)
                             .setxPos(secondCube.getxPos() - 0.2f);
+
                     thirdCube
                             .setxPos(thirdCube.getxPos() - 0.4f);
                 }
@@ -283,6 +266,7 @@ public class HelloWorld {
                 secondCube
                         .setRotationPoint(0.0f, rotPointY, 0.0f)
                         .setRotateX(secondCube.getRotateX() + 2.0f);
+
                 thirdCube
                         .setRotationPoint(0.0f, rotPointY, 0.0f)
                         .setRotateX(thirdCube.getRotateX() + 2.0f);
@@ -293,6 +277,7 @@ public class HelloWorld {
                 secondCube
                         .setRotationPoint(0.0f, rotPointY, 0.0f)
                         .setRotateX(secondCube.getRotateX() - 2.0f);
+
                 thirdCube
                         .setRotationPoint(0.0f, rotPointY, 0.0f)
                         .setRotateX(thirdCube.getRotateX() - 2.0f);
@@ -301,29 +286,43 @@ public class HelloWorld {
             // Key press handling for third cube
 
             if (glfwGetKey(window, GLFW_KEY_F10) == 1) {
+
                 thirdCube
                         .setStretchY(thirdCube.getStretchY() + 0.2f)
                         .setyPos(thirdCube.getyPos() - 0.2f);
+
             } else if (glfwGetKey(window, GLFW_KEY_F11) == 1) {
+
                 if (thirdCube.getStretchY() >= 1) {
                     thirdCube
                             .setStretchY(thirdCube.getStretchY() - 0.2f)
                             .setyPos(thirdCube.getyPos() + 0.2f);
                 }
+
             } else if (glfwGetKey(window, GLFW_KEY_F12) == 1) {
+
                 float halfCubeSize = (secondCube.getSize() * secondCube.getStretchX()) / 2;
-                float rotPointX = secondCube.getxPos() + halfCubeSize - (secondCube.getSize() / 2);
+                float rotPointTX = secondCube.getxPos() + halfCubeSize - (secondCube.getSize() / 2);
+
+                float halfCubeDist = (firstCube.getSize() * firstCube.getStretchY()) / 2;
+                float rotPointY = firstCube.getyPos() + halfCubeDist - (firstCube.getSize() / 2);
 
                 thirdCube
-                        .setRotationPoint(rotPointX, thirdCube.getRotPointY(), 0.0f)
+                        .setRotationPoint(0.0f, rotPointY, 0.0f)
                         .setRotateY(thirdCube.getRotateY() + 2.0f);
+
             } else if (glfwGetKey(window, GLFW_KEY_F9) == 1) {
+
                 float halfCubeSize = (secondCube.getSize() * secondCube.getStretchX()) / 2;
-                float rotPointX = secondCube.getxPos() + halfCubeSize - (secondCube.getSize() / 2);
+                float rotPointTX = secondCube.getxPos() + halfCubeSize - (secondCube.getSize() / 2);
+
+                float halfCubeDist = (firstCube.getSize() * firstCube.getStretchY()) / 2;
+                float rotPointY = firstCube.getyPos() + halfCubeDist - (firstCube.getSize() / 2);
 
                 thirdCube
-                        .setRotationPoint(rotPointX, thirdCube.getRotPointY(), 0.0f)
+                        .setRotationPoint(0.0f, rotPointY, 0.0f)
                         .setRotateY(thirdCube.getRotateY() - 2.0f);
+
             }
 
 
@@ -343,8 +342,9 @@ public class HelloWorld {
     private class Cube3D {
         private float size = 1.0f;
         private float stretchX = 1.0f, stretchY = 1.0f, stretchZ = 1.0f;
-        private float rotateX = 0.0f, rotateY = 0.0f, rotateZ = 0.0f;
+        private float rotateX = 0.0f, rotateY = 0.0f, rotateZ = 0.0f, aRotateY = 0.0f;
         private float rotPointX = 0.0f, rotPointY = 0.0f, rotPointZ = 0.0f;
+        private float aRotPointX = 0.0f, aRotPointY = 0.0f, aRotPointZ = 0.0f;
         private float xPos = 0.0f, yPos = 0.0f, zPos = 0.0f;
         private boolean rndColorize = true;
 
@@ -468,6 +468,13 @@ public class HelloWorld {
             return this;
         }
 
+        public Cube3D setAddRotationPoint(float x, float y, float z) {
+            this.aRotPointX = x;
+            this.aRotPointY = y;
+            this.aRotPointZ = z;
+            return this;
+        }
+
         public float getRotPointX() {
             return rotPointX;
         }
@@ -478,6 +485,32 @@ public class HelloWorld {
 
         public float getRotPointZ() {
             return rotPointZ;
+        }
+
+        public Cube3D setaRotPointX(float aRotPointX) {
+            this.aRotPointX = aRotPointX;
+            return this;
+        }
+
+        public Cube3D setAddRotateY(float aRotPointY) {
+            this.aRotateY = aRotPointY;
+            return this;
+        }
+
+        public void setaRotPointZ(float aRotPointZ) {
+            this.aRotPointZ = aRotPointZ;
+        }
+
+        public float getaRotPointX() {
+            return aRotPointX;
+        }
+
+        public float getaRotPointY() {
+            return aRotPointY;
+        }
+
+        public float getaRotPointZ() {
+            return aRotPointZ;
         }
 
         private float sin(float source) {
@@ -496,7 +529,7 @@ public class HelloWorld {
             glTranslatef( this.rotPointX,  this.rotPointY,  this.rotPointZ);
 
             glRotatef(rotateZ, 0.0f, 0.0f, 1.0f);
-            glRotatef(rotateY, 0.0f, 1.0f, 0.0f);
+            glRotatef(rotateY + aRotateY, 0.0f, 1.0f, 0.0f);
             glRotatef(rotateX, 1.0f, 0.0f, 0.0f);
 
             glTranslatef(-this.rotPointX, -this.rotPointY, -this.rotPointZ);
